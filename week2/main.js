@@ -1,63 +1,62 @@
 
-let Get = function(bt, theUrl, showCot, tag, bl) {
-    document.getElementById(bt)
-        .addEventListener('click', () => {
-        bUrl = theUrl;
-        if(bl) {
-            console.log(theUrl);
-            let input =  document.getElementsByName('Nm')[0].value;
-            theUrl = theUrl + input;
-            console.log(input)
-            if(input == '') {
-                alert('please type in right string, like: CommandLine');
-                input = 'CommandLine';
-                document.getElementsByName('Nm')[0].value = 'CommandLine';
-            }
-        }
-        console.log('you click me');
-        console.log(theUrl); 
-        getHttp(theUrl, showCot, tag);
-        theUrl = bUrl;
-     })
-    }
 
-function getHttp(theUrl, showCot, tag) {
+function getHttp(theUrl, showCot, tag, tp) {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if(xhr.readyState == 4 && xhr.status == 200) {
             let str = JSON.parse(xhr.responseText);
-            showCot(str, tag);
+            showCot(str, tag, tp);
             console.log(JSON.parse(xhr.responseText))
-        } 
+        } else if(xhr.status == 404) {
+            console.log('please type in right string, like: CommandLine');
+            alert`1`;
+            document.querySelector('div').innerHTML = xhr.status;
+        }
     }
     xhr.open("GET", theUrl, true);
     xhr.send(null);
 }
 
-function showCot(str, tag) {
+function showCot(str, tag, tp) {
     let tagObj = document.querySelector(tag);
+    if(tp == 1) {
     str.map((coter) => {
         let p = document.createElement('p');
         p.innerHTML = `Id: ${coter.id}  Name: ${coter.name}`;
         tagObj.appendChild(p);
     })
 }
+    if(tp == 2) {
+        let p = document.createElement('p');
+        p.innerHTML = `contributors: ${str.contributors_url}
+        avatar: `;
+        tagObj.appendChild(p);
+
+        let img = document.createElement('img');
+        img.src = str.owner.avatar_url
+        tagObj.appendChild(img);
+
+
+    }
+}
 
 // //get all api data
 let tUrl = "https://api.github.com/orgs/HackYourFuture/repos";
-let getAllDate = new Get('Btn', tUrl, showCot, '#lf');
+
+document.getElementById('Btn')
+        .addEventListener('click', () => {
+    console.log('you click me');
+    getHttp(tUrl, showCot, '#lf', 1);
+})
 
 //get special data
-// let orgUrl = 'https://api.github.com/repos/HackYourFuture/';
-// let input = document.getElementsByName('Nm')[0].value;
-// let spcUrl = orgUrl + input;
 let orgUrl = 'https://api.github.com/repos/HackYourFuture/';
 
-let getSpcData = new Get('sBtn', orgUrl, showSpcCot, '#rt', true);
 
-function showSpcCot(str, tag) {
-    let tagObj = document.querySelector(tag);
-    let p = document.createElement('p');
-    p.innerHTML = `contributors: ${str.contributors_url}`;
-    tagObj.appendChild(p);
-}
+document.getElementById("sBtn")
+        .addEventListener("click", () => { 
+    let input =  document.getElementsByName("Nm")[0].value;
+    let spcUrl = orgUrl + input;
+    console.log(spcUrl);
+    getHttp(spcUrl, showCot, '#rt', 2);
+});
