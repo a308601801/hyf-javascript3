@@ -1,5 +1,4 @@
 
-
 function getHttp(theUrl, showCot, tag, tp) {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
@@ -18,9 +17,9 @@ function getHttp(theUrl, showCot, tag, tp) {
 //      In the else if statement you need to console.log only in the case of the 'Done' state (4) 
 //  just like you are doing in the first if statement. Add a check for the xhr.readystate 
 //  in there for state 4 and you will get only one console.log display.
+        
         else if(xhr.readyState == 4 && xhr.status == 404) {
-            alert('please type in right string, like: CommandLine. Error:' + xhr.status);
-            document.getElementsByName("Nm")[0].value = 'CommandLine';
+            alert('Error:' + xhr.status);
         }
     }
     xhr.open("GET", theUrl, true);
@@ -63,5 +62,10 @@ document.getElementById("sBtn")
     let input =  document.getElementsByName("Nm")[0].value;
     let spcUrl = orgUrl + input;
     console.log(spcUrl);
-    getHttp(spcUrl, showCot, '#rt', 2);
+    if(input == '') {
+        alert`please type in right string, like: CommandLine.`
+        document.getElementsByName("Nm")[0].value = 'CommandLine';
+    } else {
+        getHttp(spcUrl, showCot, '#rt', 2);
+    }
 });
