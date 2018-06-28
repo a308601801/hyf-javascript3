@@ -10,7 +10,7 @@ function getHttp(theUrl, showCot, tag, tp) {
         })
         .then(user => showCot(user, tag, tp))
         .catch(error => {
-            console.log('There has been a problem with your fetch operation: ', error.message);
+            alert('There has been a problem with your fetch operation: ', error.message);
         });
 }
 
