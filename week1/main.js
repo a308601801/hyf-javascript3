@@ -2,6 +2,8 @@ class Movie {
     constructor(title, director) {
         this.title = title;
         this.director = director;
+        this.star = [];
+        this.writer = [];
     }
 
     getTitle() {
@@ -13,12 +15,7 @@ class Movie {
     }
 
     addStar(star) {
-        if (this.star === undefined) {
-            this.star = [];
-            this.star.push(star);
-        } else {
-            this.star.push(star);
-        }
+        this.star.push(star);
     }                                                                                                                                                                                                   
 
     getStars() {
@@ -26,7 +23,7 @@ class Movie {
     }
 
     addWriter(writer) {
-        this.writer = writer;
+        this.writer.push(writer);
     }
 
     getWriters() {
@@ -47,10 +44,11 @@ class StaffMember {
       this.name = name;
       this.role = role;
       this.dateOfBirth = dateOfBirth;
+      this.movie =[];
     }
   
     addMovie(movie) {
-      this.movie = movie;
+      this.movie.append(movie);
     }
   
     getName() {
