@@ -1,5 +1,3 @@
-let omdbUrl = 'http://www.omdbapi.com/?t=spiderman&apikey=27b1cab0';
-console.log(omdbUrl);
 
 let btn = document.getElementById('btn');
 let outputData = document.getElementById('output');
