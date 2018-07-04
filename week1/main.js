@@ -79,6 +79,6 @@ console.log(myMovie.getStars().map(actor => `${actor.getName()} ${actor.getAge()
 const director = myMovie.getDirector();
 console.log(`Director: ${director.getName()}`);
 
-let content = myMovie.getStars().map(actor => `${actor.getName()} ${actor.getAge()} <br>`);
+let div = document.querySelector('div');
+myMovie.getStars().map(actor => div.innerHTML += `${actor.getName()} ${actor.getAge()} <br>`);
 
-document.querySelector('div').innerHTML = content
